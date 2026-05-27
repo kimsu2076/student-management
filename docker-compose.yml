@@ -17,20 +17,21 @@ services:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql_data:/var/lib/mysql
 
-# 백엔드 컨테이너를 설정합니다.
-backend:
-    build: ./backend
-    container_name: school_backend
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      DB_HOST: db
-      DB_USER: kopouser
-      DB_PASSWORD: koposuer
-      DB_NAME: kopodb
-    depends_on:
-      - db
+  # 백엔드 컨테이너를 설정합니다.
+  backend:
+      build: ./backend
+      container_name: school_backend
+      restart: always
+      ports:
+        - "3000:3000"
+      environment:
+        DB_HOST: db
+        DB_USER: kopouser
+        DB_PASSWORD: koposuer
+        DB_NAME: kopodb
+      depends_on:
+        - db
+  # "feat: docker-compose.yml 수정" : backend를 service 하위에 들어가도록 tab.
 
 volumes:
   mysql_data:
