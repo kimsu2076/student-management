@@ -9,6 +9,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: koposuer
       MYSQL_DATABASE: kopodb
+      MYSQL_USER: kopouser        
+      MYSQL_PASSWORD: koposuer
     ports:
       - "3306:3306"
     volumes:
@@ -27,7 +29,6 @@ backend:
       DB_USER: kopouser
       DB_PASSWORD: koposuer
       DB_NAME: kopodb
-      # DB 컨테이너가 완전히 실행된 후 백엔드가 켜지도록 보장합니다.
     depends_on:
       - db
 
