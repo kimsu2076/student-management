@@ -1,0 +1,35 @@
+version: '3.8'
+
+# 데이터베이스 컨테이너를 설정합니다.
+services:
+  db:
+    image: mysql:8.0
+    container_name: school_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: koposuer
+      MYSQL_DATABASE: kopodb
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+
+# 백엔드 컨테이너를 설정합니다.
+backend:
+    build: ./backend
+    container_name: school_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: kopouser
+      DB_PASSWORD: koposuer
+      DB_NAME: kopodb
+      # DB 컨테이너가 완전히 실행된 후 백엔드가 켜지도록 보장합니다.
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
