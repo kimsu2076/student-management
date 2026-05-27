@@ -12,7 +12,7 @@ services:
       MYSQL_USER: kopouser        
       MYSQL_PASSWORD: koposuer
     ports:
-      - "3306:3306"
+      - "3308:3306" # "feat: docker-compose.yml 수정" : 호스트의 3308 포트를 컨테이너의 3306 포트로 매핑
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mysql_data:/var/lib/mysql
